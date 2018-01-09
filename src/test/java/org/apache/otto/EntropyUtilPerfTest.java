@@ -51,6 +51,8 @@ public class EntropyUtilPerfTest {
     return inputData.get(rng.nextInt(inputData.size()));
   }
 
+  static Map<?, Integer> DATA = inputData.get(rng.nextInt(inputData.size()));
+
   @Benchmark
   public void nonStream() {
     EntropyUtil.entropy(getData(), 2);
@@ -60,4 +62,16 @@ public class EntropyUtilPerfTest {
   public void stream() {
     EntropyUtil.stream_entropy(getData(), 2);
   }
+
+  @Benchmark
+  public void nonStreamPreFetch() {
+    EntropyUtil.entropy(DATA, 2);
+  }
+
+  @Benchmark
+  public void streamPreFetch() {
+    EntropyUtil.stream_entropy(DATA, 2);
+  }
+
+
 }
